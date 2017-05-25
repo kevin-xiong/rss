@@ -1,18 +1,23 @@
 <html>
     <script>
+        loadXML = function(xmlString){
+        var xmlDoc=null;
+            try{
+                domParser = new  DOMParser();
+                xmlDoc = domParser.parseFromString(xmlString, 'text/xml');
+            }catch(e){
+            }
+            return xmlDoc;
+        }
+
         fetch('https://www.matrix67.com/blog/feed',{
-    mode:"no-cors"
-})
-        .then(
-            function(response){
-                if(response.status!==200){
-                    console.log("存在一个问题，状态码为："+response.status);
-                    return;
-                }
-                //检查响应文本
-                response.json().then(function(data){
-                    console.log(data);
-                });
+            mode:"no-cors"
+        })
+        .then(function(response){
+           return response.json()
+        }).then(function(data){
+                    var a = loadXML(data);
+                    console.log(a)
             }
         )
         .catch(function(err){
